@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Migrations (optional – if you don’t want to commit them)
+# */migrations/
+# !*/migrations/__init__.py
+
+# Local settings
+settings_local.py
+
+# PyInstaller
+*.spec
+
+# Coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pytest
+.cache/
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
