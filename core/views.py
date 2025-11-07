@@ -17,3 +17,11 @@ def aboutPage(request):
 def servicePage(request):
 
     return render(request, 'service.html')
+
+def contactPage(request):
+
+    return render(request, 'contact.html')
+
+def pricePage(request):
+
+    return render(request, 'price.html')

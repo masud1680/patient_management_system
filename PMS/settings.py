@@ -84,26 +84,26 @@ WSGI_APPLICATION = 'PMS.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#        'default': {
-#           'ENGINE': config("DB_ENGINE"),
-#           'NAME': config('DB_NAME'),  # Name of your PostgreSQL database
-#           'USER': config('DB_USER'),      # PostgreSQL username
-#           'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
-#           'HOST': config('DB_HOST', default='localhost'),          # Or the IP/hostname if remote
-#           'PORT': config('DB_PORT', default='5432'),               # Default PostgreSQL port
-#        }
-#    }
-
-
-import dj_database_url
-# Online Onrender.com pg database connect
 DATABASES = {
-    'default': dj_database_url.config(
-        default="postgresql://patient_management_system_pk1c_user:jpMfYFV7az0oFf9zLBRGHpdb6rJh6Uvf@dpg-d4653vmuk2gs73cu8pm0-a.singapore-postgres.render.com/patient_management_system_pk1c",
-        conn_max_age=600
-    )
-}
+       'default': {
+          'ENGINE': config("DB_ENGINE"),
+          'NAME': config('DB_NAME'),  # Name of your PostgreSQL database
+          'USER': config('DB_USER'),      # PostgreSQL username
+          'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
+          'HOST': config('DB_HOST', default='localhost'),          # Or the IP/hostname if remote
+          'PORT': config('DB_PORT', default='5432'),               # Default PostgreSQL port
+       }
+   }
+
+
+# import dj_database_url
+# # Online Onrender.com pg database connect
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="postgresql://patient_management_system_pk1c_user:jpMfYFV7az0oFf9zLBRGHpdb6rJh6Uvf@dpg-d4653vmuk2gs73cu8pm0-a.singapore-postgres.render.com/patient_management_system_pk1c",
+#         conn_max_age=600
+#     )
+# }
 
 
 # Password validation
@@ -163,8 +163,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='') #password associated with above email-id (not the regular password)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') #password associated with above email-id (not the regular password)
 
 
 

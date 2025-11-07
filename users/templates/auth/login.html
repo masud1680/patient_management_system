@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    {% load static %}
-    <meta charset="utf-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-  </head>
-  <body>
-    <div class="center">
-      <h1>Login</h1>
+{% extends "auth_base.html" %}
+{% load static %}
 
+{% block title %} Login{% endblock title %} 
+
+{% block content %}
       {% if messages %}
           {% for message in messages %}
               {% if message.tags == 'error' %}
@@ -19,30 +13,55 @@
               {% endif %}
           {% endfor %}
       {% endif %}
+    <br/>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="SportFit Logo">
+            <h1>Sign In</h1>
+            <p>Login your account</p>
+        </div>
         
-      <form method="POST">
-
-        {% csrf_token %}
-
-        <div class="txt_field">
-          <input type="text" required name="username">
-          <span></span>
-          <label>Username</label>
-        </div>
-
-        <div class="txt_field">
-          <input type="password" required name="password">
-          <span></span>
-          <label>Password</label>
-        </div>
-
-        <input type="submit" value="Login">
-        <div class="signup_link">
-          Not a member? <a href="{% url 'register' %}">Signup</a>
-          <p>Forgot your Password? <a href="{% url 'forgot-password' %}">Reset Password</a></p> 
-        </div>
-      </form>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" id="username" required name="username">
+                <label for="username">Email</label>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" required  name="password">
+                <label for="password">Password</label>
+            </div>
+            
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <div class="forgot-password">
+                    <a href="{% url 'forgot-password' %}">Forgot password?</a>
+                </div>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+            
+            <div class="divider">or continue with</div>
+            
+            <div class="social-login">
+                <div class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google">
+                </div>
+                <div class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+                </div>
+                <div class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                </div>
+            </div>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+            </div>
+        </form>
     </div>
-
-  </body>
-</html>
+{% endblock content %}

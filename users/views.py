@@ -185,4 +185,4 @@ def ResetPassword(request, reset_id):
         messages.error(request, 'Invalid reset id')
         return redirect('forgot-password')
 
-    return render(request, 'auth/reset_password.html')
+    return render(request, 'auth/reset_password.html') 
