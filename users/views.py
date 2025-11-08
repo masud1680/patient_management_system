@@ -11,6 +11,14 @@ from .models import *
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 
+def is_admin(user):
+    return user.groups.filter(name="admin").exists()
+
+def is_doctor(user):
+    return user.groups.filter(name="doctor").exists()
+
+def is_patient(user):
+    return user.groups.filter(name="patient").exists()
 
 def RegisterView(request):
 
@@ -79,7 +87,7 @@ def LoginView(request):
         if user is not None:
             login(request, user)
 
-            return redirect('student_dashboard')
+            return redirect('dashboard')
         
         else:
             messages.error(request, "Invalid login credentials")
@@ -186,3 +194,27 @@ def ResetPassword(request, reset_id):
         return redirect('forgot-password')
 
     return render(request, 'auth/reset_password.html') 
+
+@login_required
+def patient_dashboard(request):
+
+    return render(request, 'users_dashboard/patient_dashboard.html')
+
+@login_required
+def doctor_dashboard(request):
+
+    return render(request, 'users_dashboard/doctor_dashboard.html')
+
+def redirect_dashboard(request):
+    
+    if is_patient(request.user):
+        return redirect('patient-dashboard')
+    
+    elif is_doctor(request.user):
+        return redirect('doctor-dashboard')
+    
+    elif is_admin(request.user):
+        return redirect('admin-dashboard')
+    
+    else :
+        return redirect('no-permission')
