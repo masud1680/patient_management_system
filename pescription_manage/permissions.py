@@ -2,13 +2,23 @@
 from rest_framework import permissions
 from .models import DoctorProfile, PatientProfile
 
-class IsDoctor(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return hasattr(request.user, 'doctorprofile')
+# class IsDoctor(permissions.BasePermission):
+#     def has_permission(self, request, view):
 
-class IsPatient(permissions.BasePermission):
+from rest_framework.permissions import BasePermission
+
+class IsDoctor(BasePermission):
     def has_permission(self, request, view):
-        return hasattr(request.user, 'patientprofile')
+        return request.user.is_authenticated and request.user.role == 'doctor'
+
+# class IsPatient(permissions.BasePermission):
+#     def has_permission(self, request, view):
+#         return hasattr(request.user, 'patientprofile')
+
+
+class IsPatient(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.groups == 'patient'
 
 class IsDoctorOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):

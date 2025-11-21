@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en" class="">
   <head>
+    <meta name="csrf-token" content="{{ csrf_token }}" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient Dashboard</title>
@@ -44,6 +46,27 @@
         darkMode: "class",
       };
     </script>
+
+    <style>
+      .avatar-input {
+        display: none;
+      }
+      .avatar-preview {
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 9999px;
+        border: 2px solid rgba(0, 0, 0, 0.06);
+      }
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background: white;
+        }
+      }
+    </style>
   </head>
   <body
     class="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
@@ -56,34 +79,33 @@
         class="h-16 flex items-center justify-center px-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0"
       >
         <a href="{% url 'home-page' %}">
-                    <div class="flex items-center">
-          <svg
-            class="h-10 w-10 text-blue-600 dark:text-blue-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-            />
-          </svg>
-          <span
-            class="sidebar-logo-text ml-3 text-2xl font-bold text-gray-800 dark:text-white"
-            >PMS</span
-          >
-        </div>
-
-    </a>
-
+          <div class="flex items-center">
+            <svg
+              class="h-10 w-10 text-blue-600 dark:text-blue-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+              />
+            </svg>
+            <span
+              class="sidebar-logo-text ml-3 text-2xl font-bold text-gray-800 dark:text-white"
+              >PMS</span
+            >
+          </div>
+        </a>
       </div>
 
       <nav class="flex-grow px-2 space-y-1 pt-2">
         <a
-          href="#" onclick="dashboard()"
+          href="#"
+          onclick="dashboard()"
           data-section="dashboard"
           class="sidebar-link active flex items-center py-2.5 px-4 rounded-lg hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 group"
         >
@@ -108,7 +130,8 @@
           >
         </a>
         <a
-          href="#" onclick="set_patient_total_unique_doctors_ditels()"
+          href="#"
+          onclick="set_patient_total_unique_doctors_ditels()"
           data-section="doctors"
           class="sidebar-link flex items-center py-2.5 px-4 rounded-lg hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600 group"
         >
@@ -178,26 +201,27 @@
             class="h-10 w-10 rounded-full object-cover"
           />
           <div class="profile-info ml-3">
-            <p id="patient_name_02" class="text-sm font-medium text-gray-800 dark:text-white">
-              Miraj Hossen <input id="get_user_id" hidden value="{{request.user.id}}"/>
+            <p
+              id="patient_name_02"
+              class="text-sm font-medium text-gray-800 dark:text-white"
+            >
+              Null
+              <input id="get_user_id" hidden value="{{request.user.id}}" />
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400">Patient</p>
           </div>
         </div>
-        
+
         <div class="flex items-center">
-        <a href="{% url 'logout' %}">
-           
-        <button
-          class="w-full mt-3 flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-gray-700"
-        >
-          <ion-icon name="log-out-outline" class="text-lg mr-2"></ion-icon>
-          <span class="sidebar-text">Logout</span>
-        </button>
-        </a>
+          <a href="{% url 'logout' %}">
+            <button
+              class="w-full mt-3 flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-gray-700"
+            >
+              <ion-icon name="log-out-outline" class="text-lg mr-2"></ion-icon>
+              <span class="sidebar-text">Logout</span>
+            </button>
+          </a>
         </div>
-
-
       </div>
     </aside>
 
@@ -255,9 +279,10 @@
                 alt="User Avatar"
                 class="h-8 w-8 rounded-full object-cover"
               />
-              <span id="patient_name_01"
+              <span
+                id="patient_name_01"
                 class="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300"
-                >Miraj</span
+                >Null</span
               >
               <ion-icon
                 name="chevron-down-outline"
@@ -270,7 +295,9 @@
             >
               <a
                 href="#"
-                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                onclick="set_patient_profile_ditels()"
+                data-section="profileView"
+                class="sidebar-link block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >My Profile</a
               >
               <a
@@ -289,6 +316,446 @@
       </header>
 
       <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 space-y-6">
+        <!--++++++++++ using for profile view start-->
+
+        <!-- Profile view -->
+        <section id="profileView" class="content-section" data-aos="fade-up">
+          <div
+            class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300"
+          >
+            <!-- Left: Avatar -->
+            <section
+              class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
+            >
+              <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="viewAvatar"
+                  src="https://placehold.co/150x150?text=Avatar"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+              </div>
+
+              <div class="text-center">
+                <p
+                  id="profileName"
+                  class="text-xl font-semibold text-gray-800 dark:text-gray-100"
+                >
+                  Null
+                </p>
+                <p
+                  id="profileBloodGroup1"
+                  class="text-sm text-gray-500 dark:text-gray-300"
+                >
+                  Null
+                </p>
+              </div>
+
+              <a href="#" data-section="profileEdit" class="sidebar-link">
+                <button
+                  class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition"
+                >
+                  Edit Profile
+                </button>
+              </a>
+            </section>
+
+            <!-- Right: Details text instead of inputs -->
+            <section class="md:col-span-2 grid gap-6">
+              <!-- Row 1 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% comment %} <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Full Name
+                  </p>
+                  <p
+                    id="profileFullName"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div> {% endcomment %}
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Phone
+                  </p>
+                  <p
+                    id="profilePhone"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    +8801...
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Email
+                  </p>
+                  <p
+                    id="profileEmail"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    you@example.com
+                  </p>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Blood Group
+                  </p>
+                  <p
+                    id="profileBloodGroup2"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Pescription Status
+                  </p>
+                  <p
+                    id="profilePescriptionStatus"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Gender
+                  </p>
+                  <p
+                    id="profileGender"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Age
+                  </p>
+                  <p
+                    id="profileAge"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Address
+                </p>
+                <p
+                  id="profileAddress"
+                  class="mt-1 text-gray-600 dark:text-gray-300"
+                >
+                  Street, City, Country
+                </p>
+              </div>
+
+              <!-- Bio -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Short Bio
+                </p>
+                <p
+                  id="profileShortBio"
+                  class="mt-1 text-gray-600 dark:text-gray-300 leading-relaxed"
+                >
+                  A short professional profile...
+                </p>
+              </div>
+
+              <!-- Stats -->
+              <div class="flex gap-6 mt-4">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Followers:</span> 2.5k
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Articles:</span> 13
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Papers:</span> 7
+                </p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Profile edit form -->
+        <section id="profileEdit" class="content-section" data-aos="fade-up">
+          <form
+            id="patientProfileForm"
+            class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300"
+          >
+            <!-- Left: avatar -->
+            <section
+              class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
+            >
+              <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="avatarPreview"
+                  src="https://placehold.co/150x150?text=Avatar"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+                <label
+                  for="avatarInput"
+                  class="absolute bottom-2 right-2 bg-indigo-600 text-white rounded-full p-2 shadow-md cursor-pointer no-print hover:bg-indigo-700 transition"
+                  title="Change avatar"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9.414A2 2 0 0016.414 8L12 3.586A2 2 0 0010.586 3H4z"
+                    />
+                  </svg>
+                </label>
+                <input
+                  id="avatarInput"
+                  class="avatar-input"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+              <div class="text-center text-sm text-gray-600 dark:text-gray-300">
+                Accepted: JPG, PNG. Max 2MB
+              </div>
+              <div class="text-center">
+                <p
+                  id="editProfileName"
+                  class="text-xl font-semibold text-gray-800 dark:text-gray-100"
+                >
+                  Null
+                </p>
+                <p
+                  id="editProfileBloodGroup1"
+                  class="text-sm text-gray-500 dark:text-gray-300"
+                >
+                  Null
+                </p>
+              </div>
+            </section>
+
+            <!-- Right: fields -->
+            <section class="md:col-span-2 grid gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm font-medium">Fast name</label>
+                  <input
+                    name="full_name"
+                    id="editProfileFastName"
+                    required
+                    class="dark:text-black mt-1 block w-1/2 rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder=" Dr. "
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Last name</label>
+                  <input
+                    name="full_name"
+                    id="editProfileLastName"
+                    required
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Masud"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="editProfileEmail"
+                    required
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Phone</label>
+                  <input
+                  required
+                    name="phone"
+                    id="editProfilePhone"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="+8801..."
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {% comment %}
+                <div>
+                  <label class="text-sm font-medium">Blood Group</label>
+                  <input
+                    name="specialization"
+                    id="editProfileBloodGroup2"
+                    class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="e.g. Cardiologist"
+                  />
+                </div>
+                {% endcomment %}
+                <div>
+                  <label
+                    for="editProfileBloodGroup02"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Blood Group</label
+                  >
+                  <select
+                  required
+                    id="editProfileBloodGroup2"
+                    name="editProfileBloodGroup02"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 dark:text-black text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+
+                {% comment %}
+                <div>
+                  <label class="text-sm font-medium">Pescription Status</label>
+                  <input
+                    name="availability"
+                    id="editProfilePescriptionStatus"
+                    class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Mon-Fri, 9am - 5pm"
+                  />
+                </div>
+
+                {% endcomment %}
+                <div>
+                  <label
+                    for="editProfilePescriptionStatusv"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Pescription Status</label
+                  >
+                  <select
+                    id="editProfilePescriptionStatus"
+                    name="editProfilePescriptionStatusv"
+                    class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="true" selected>True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="editProfileGenderv"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Gender</label
+                  >
+                  <select
+                  required
+                    id="editProfileGender"
+                    name="editProfileGenderv"
+                    class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="Male"  >Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="text-sm font-medium">Age</label>
+                  <input
+                  required
+                    name="age"
+                    id="editProfileAge"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="18"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-sm font-medium">Address</label>
+                <input
+                  name="address"
+                  id="editProfileAddress"
+                  class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                  placeholder="Street, City, Country"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-medium">Short bio</label>
+                <textarea
+                  name="bio"
+                  id="editProfileShortBio"
+                  rows="4"
+                  class="mt-1 block w-full rounded-md border-gray-200 dark:text-black dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                  placeholder="Type your bio..."
+                ></textarea>
+              </div>
+
+              <input
+                id="editProfileUser_id"
+                hidden
+                value="{{request.user.id}}"
+              />
+              <div class="flex gap-3 justify-end mt-2 no-print">
+                <a href="#" data-section="profileView" class="sidebar-link">
+                  <button
+                    type="button"
+                    id="cancelBtn"
+                    class="px-4 py-2 rounded-md border border-gray-300"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onclick="addPatient()"
+                    type="submit"
+                    id="saveBtn"
+                    class="px-5 py-2 rounded-md bg-indigo-600 text-white"
+                  >
+                    Save
+                  </button>
+                </a>
+              </div>
+            </section>
+          </form>
+        </section>
+
+        <!--++++++++++ using for profile update close-->
+
         <!--Dashboard-->
         <section id="dashboard" class="content-section" data-aos="fade-up">
           <h1 class="text-3xl font-semibold text-gray-800 dark:text-white mb-6">
@@ -309,7 +776,10 @@
                   >
                     Total Pescriptions
                   </p>
-                  <p id = "total_pescription_count" class="text-3xl font-bold text-gray-800 dark:text-white">
+                  <p
+                    id="total_pescription_count"
+                    class="text-3xl font-bold text-gray-800 dark:text-white"
+                  >
                     1,280
                   </p>
                 </div>
@@ -359,7 +829,10 @@
                   >
                     Total Visited Doctors
                   </p>
-                  <p id="total_unique_doctors_count" class="text-3xl font-bold text-gray-800 dark:text-white">
+                  <p
+                    id="total_unique_doctors_count"
+                    class="text-3xl font-bold text-gray-800 dark:text-white"
+                  >
                     35
                   </p>
                 </div>
@@ -599,7 +1072,10 @@
           <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
           >
-            <div class="p-4 sm:p-6 overflow-x-auto">
+            <div
+              id="pescription_table_container"
+              class="p-4 sm:p-6 overflow-x-auto"
+            >
               <table
                 class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm"
               >
@@ -640,119 +1116,7 @@
                 <tbody
                   id="pescription_list"
                   class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
-                >
-                  <tr data-aos="fade-in">
-                    <td class="px-6 py-4 whitespace-nowrap">MED001</td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white"
-                    >
-                      Paracetamol 500mg
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      Dinajpur, Rangpur, Bangladesh
-                    </td>
-
-                    <td class="px-6 py-4 whitespace-nowrap">07-11-2025</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100"
-                      >
-                        $5.00</span
-                      >
-                    </td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2"
-                    >
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                      >
-                        <ion-icon name="eye-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"
-                      >
-                        <ion-icon name="pencil-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <ion-icon name="trash-outline"></ion-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr data-aos="fade-in" data-aos-delay="50">
-                    <td class="px-6 py-4 whitespace-nowrap">MED002</td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white"
-                    >
-                      Amoxicillin 250mg
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">Antibiotic</td>
-
-                    <td class="px-6 py-4 whitespace-nowrap">$12.50</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100"
-                        >In Stock</span
-                      >
-                    </td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2"
-                    >
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                      >
-                        <ion-icon name="eye-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"
-                      >
-                        <ion-icon name="pencil-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <ion-icon name="trash-outline"></ion-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr data-aos="fade-in" data-aos-delay="100">
-                    <td class="px-6 py-4 whitespace-nowrap">MED003</td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white"
-                    >
-                      Vitamin C 1000mg
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">Vitamin</td>
-
-                    <td class="px-6 py-4 whitespace-nowrap">$8.75</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100"
-                        >Out of Stock</span
-                      >
-                    </td>
-                    <td
-                      class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2"
-                    >
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                      >
-                        <ion-icon name="eye-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"
-                      >
-                        <ion-icon name="pencil-outline"></ion-icon>
-                      </button>
-                      <button
-                        class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <ion-icon name="trash-outline"></ion-icon>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                ></tbody>
               </table>
             </div>
           </div>
@@ -781,359 +1145,11 @@
               </select>
             </div>
           </div>
-          <div id="total_unique_doctors_ditels"
+          <div
+            id="total_unique_doctors_ditels"
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Alice Smith
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Cardiologist
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, MD (Cardiology)
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: Mon-Fri, 9 AM - 5 PM
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 234 567 890
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Alice Smith
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Cardiologist
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, MD (Cardiology)
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: Mon-Fri, 9 AM - 5 PM
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 234 567 890
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Alice Smith
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Cardiologist
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, MD (Cardiology)
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: Mon-Fri, 9 AM - 5 PM
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 234 567 890
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Alice Smith
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Cardiologist
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, MD (Cardiology)
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: Mon-Fri, 9 AM - 5 PM
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 234 567 890
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-              data-aos-delay="100"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=CBD5E0&textColor=4A5568&text=Dr.J"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Bob Johnson
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Neurologist
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, DM (Neurology)
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: Tue, Thu, Sat
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 345 678 901
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-              data-aos-delay="200"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=A0AEC0&textColor=2D3748&text=Dr.C"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  Dr. Carol White
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  Pediatrician
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  MBBS, DCH
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-red-500"
-                    ></ion-icon>
-                    On Leave
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    +1 456 789 012
-                  </p>
-                </div>
-                <div class="mt-4 flex space-x-2">
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-500 hover:text-blue-600"
-                  >
-                    <ion-icon name="eye-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-green-500 hover:text-green-600"
-                  >
-                    <ion-icon name="pencil-outline" class="text-lg"></ion-icon>
-                  </button>
-                  <button
-                    class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-500 hover:text-red-600"
-                  >
-                    <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <h1>No Available doctors......</h1>
           </div>
         </section>
 
@@ -1679,17 +1695,22 @@
       async function load_All_pescriptions() {
         const data = await getAllPrescriptions();
         let patient_id = await find_patient_id();
-        //console.log(data);
+        //console.log(data.length);
 
-        const tbody = document.getElementById("pescription_list");
-        tbody.innerHTML = "";
+        if (data.length == 0) {
+          const pescriptionTableContainer = document.getElementById(
+            "pescription_table_container"
+          );
+          pescriptionTableContainer.innerHTML = "No pescription......";
+        } else {
+          const tbody = document.getElementById("pescription_list");
+          tbody.innerHTML = "";
 
-        data.forEach((p) => {
-            if(patient_id == p.patient.id){
+          data.forEach((p) => {
+            if (patient_id == p.patient.id) {
+              const tr = document.createElement("tr");
 
-        const tr = document.createElement("tr");
-
-          tr.innerHTML = `
+              tr.innerHTML = `
           
            
                                     <td class="px-6 py-4 whitespace-nowrap">${
@@ -1702,7 +1723,9 @@
                                       p.diagnosis
                                     }</td>
                                    
-                                    <td class="px-6 py-4 whitespace-nowrap">${p.created_at.split("T")[0]}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">${
+                                      p.created_at.split("T")[0]
+                                    }</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">${p.medicines
                                           .map((m) => m.medicine_name)
@@ -1716,46 +1739,42 @@
                              
         `;
 
-          tbody.appendChild(tr);
-
+              tbody.appendChild(tr);
             }
-
-        });
-      };
-
+          });
+        }
+      }
 
       <!--Patient personal Ditels-->
       const user_id = document.getElementById("get_user_id").value;
       //console.log("user id :" , user_id);
 
-    async function GetAllPatientDitels(){
+      async function GetAllPatientDitels() {
         let res = await fetch(`${API_BASE}/patients`);
         return res.json();
-        
-    };
+      }
 
-    async function find_patient_id(){
+      async function find_patient_id() {
         let data = await GetAllPatientDitels();
         let patient_id = 0;
-        data.forEach((v)=>{
-            if(v.user.id == user_id){
-                
-                patient_id = v.id;
-            }
+        data.forEach((v) => {
+          if (v.user.id == user_id) {
+            patient_id = v.id;
+          }
         });
 
         return patient_id;
-    }
+      }
 
-    async function GetSinglePatientDitels(){
+      async function GetSinglePatientDitels() {
         let patient_id = await find_patient_id();
         //console.log("patient_ id : ", patient_id);
         let res = await fetch(`${API_BASE}/patients/${patient_id}`);
-         
-        return res.json();
-    };
 
-    async function set_patient_Ditels(){
+        return res.json();
+      }
+
+      async function set_patient_Name() {
         let data = await GetSinglePatientDitels();
         //console.log("user data : ", data);
         const patientName02 = document.getElementById("patient_name_02");
@@ -1765,67 +1784,178 @@
         const patientName01 = document.getElementById("patient_name_01");
         patientName01.innerHTML = "";
         patientName01.innerHTML = `${data.user.last_name}`;
+      }
 
+      function bloodIndexFind(blood_group) {
+        if (blood_group == "A+") {
+          return 0;
+        } else if (blood_group == "A-") {
+          return 1;
+        } else if (blood_group == "B+") {
+          return 2;
+        } else if (blood_group == "B-") {
+          return 3;
+        } else if (blood_group == "AB+") {
+          return 4;
+        } else if (blood_group == "AB-") {
+          return 5;
+        } else if (blood_group == "O+") {
+          return 6;
+        } else if (blood_group == "O-") {
+          return 7;
+        }
+      };
 
-    }
+      function genderIndexFind(gender) {
+        if (gender == "Male") {
+          return 0;
+        } else if (gender == "Female") {
+          return 1;
+        } 
+      };
 
-    set_patient_Ditels();
+      // show patient profile all ditels
+      async function set_patient_profile_ditels() {
+        let data = await GetSinglePatientDitels();
 
-    // working for every patient total pescription
-    async function getPatientCount(id) {
-    const res = await fetch(`http://127.0.0.1:8000/api/prescription-count/?patient_id=${id}`);
-    const data = await res.json();
-    //console.log(data);
-    return data;
-    };
+        //console.log(data);
 
-    async function set_patient_total_pescriptions(){
+        // set data -> html
+
+        const profileName = document.getElementById("profileName");
+        const profileBloodGroup1 =
+          document.getElementById("profileBloodGroup1");
+        const profileBloodGroup2 =
+          document.getElementById("profileBloodGroup2");
+        //const profileFullName = document.getElementById("profileFullName");
+        const profileEmail = document.getElementById("profileEmail");
+        const profilePhone = document.getElementById("profilePhone");
+        const profilePescriptionStatus = document.getElementById(
+          "profilePescriptionStatus"
+        );
+        const profileGender = document.getElementById("profileGender");
+        const profileAge = document.getElementById("profileAge");
+        const profileAddress = document.getElementById("profileAddress");
+        const profileShortBio = document.getElementById("profileShortBio");
+
+        profileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+       // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        profileBloodGroup1.innerHTML = `${data.blood_group} `;
+        profileBloodGroup2.innerHTML = `${data.blood_group} `;
+        profileEmail.innerHTML = `${data.user.email} `;
+        profilePhone.innerHTML = `${data.phone_number} `;
+        profileGender.innerHTML = `${data.gender} `;
+        profileAge.innerHTML = `${data.age} `;
+        profilePescriptionStatus.innerHTML = `${data.visible_to_doctors}`;
+        profileAddress.innerHTML = `${data.address} `;
+        profileShortBio.innerHTML = `${data.short_bio} `;
+
+        // edit page
+        const editProfileName = document.getElementById("editProfileName");
+        const editProfileBloodGroup1 = document.getElementById(
+          "editProfileBloodGroup1"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileFastName = document.getElementById(
+          "editProfileFastName"
+        );
+        const editProfileLastName = document.getElementById(
+          "editProfileLastName"
+        );
+        const editProfileEmail = document.getElementById("editProfileEmail");
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        editProfileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        editProfileBloodGroup1.innerHTML = `${data.blood_group} `;
+        editProfileFastName.value = `${data.user.first_name} `;
+        editProfileLastName.value = `${data.user.last_name}`;
+        editProfileBloodGroup1.value = `${data.blood_group} `;
+
+        editProfileEmail.value = `${data.user.email} `;
+        editProfilePhone.value = `${data.phone_number} `;
+        editProfileGender.selectedIndex = genderIndexFind(data.gender);
+        editProfileAge.value = `${data.age} `;
+        editProfileBloodGroup2.selectedIndex = bloodIndexFind(data.blood_group);
+        editProfilePescriptionStatus.value = `${data.visible_to_doctors}`;
+        editProfileAddress.value = `${data.address} `;
+        editProfileShortBio.value = `${data.short_bio} `;
+      }
+
+      // working for every patient total pescription
+      async function getPatientCount(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/prescription-count/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
+
+      async function set_patient_total_pescriptions() {
         let patient_id = await find_patient_id();
         let data = await getPatientCount(patient_id);
         //console.log(data);
-        const totalPescriptionCount = document.getElementById("total_pescription_count");
+        const totalPescriptionCount = document.getElementById(
+          "total_pescription_count"
+        );
         totalPescriptionCount.innerHTML = "";
         totalPescriptionCount.innerHTML = `${data.total_prescriptions}`;
+      }
 
-    };
-    
-    
-    // working for every patient total unique doctors
-    async function getPatientUniqueDoctorsCount(id) {
-    const res = await fetch(`http://127.0.0.1:8000/api/analytics/unique-doctors/?patient_id=${id}`);
-    const data = await res.json();
-    //console.log(data);
-    return data;
-    };
+      // working for every patient total unique doctors
+      async function getPatientUniqueDoctorsCount(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/analytics/unique-doctors/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
 
-    async function set_patient_total_unique_doctors(){
+      async function set_patient_total_unique_doctors() {
         let patient_id = await find_patient_id();
         let data = await getPatientUniqueDoctorsCount(patient_id);
         //console.log(data);
-        const totalUniqueDoctorsCount = document.getElementById("total_unique_doctors_count");
+        const totalUniqueDoctorsCount = document.getElementById(
+          "total_unique_doctors_count"
+        );
         totalUniqueDoctorsCount.innerHTML = "";
         totalUniqueDoctorsCount.innerHTML = `${data.unique_doctor_count}`;
+      }
 
-    };
-    
-    
-    // working for every patient total unique doctors ditels
-    async function getPatientUniqueDoctorsDitels(id) {
-    const res = await fetch(`http://127.0.0.1:8000/api/analytics/unique-doctors/details/?patient_id=${id}`);
-    const data = await res.json();
-    //console.log(data);
-    return data;
-    };
+      // working for every patient total unique doctors ditels
+      async function getPatientUniqueDoctorsDitels(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/analytics/unique-doctors/details/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
 
-    async function set_patient_total_unique_doctors_ditels(){
+      async function set_patient_total_unique_doctors_ditels() {
         let patient_id = await find_patient_id();
         let data = await getPatientUniqueDoctorsDitels(patient_id);
-        console.log(data);
-        const totalUniqueDoctorsDitels = document.getElementById("total_unique_doctors_ditels");
+        // console.log(data);
+        const totalUniqueDoctorsDitels = document.getElementById(
+          "total_unique_doctors_ditels"
+        );
         totalUniqueDoctorsDitels.innerHTML = "";
-        
-        data.doctors.forEach((d)=>{
-            totalUniqueDoctorsDitels.innerHTML = `
+
+        data.doctors.forEach((d) => {
+          totalUniqueDoctorsDitels.innerHTML = `
             
                         <div
               class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
@@ -1873,17 +2003,104 @@
 
             `;
         });
+      }
 
-    };
-    
-    // default call function + dashboard call function
-    function dashboard(){
-       
+      // default call function + dashboard call function
+      function dashboard() {
+        set_patient_Name();
         set_patient_total_pescriptions();
         set_patient_total_unique_doctors();
-    };
+      }
 
-    dashboard();
+      dashboard();
+
+      fetch("http://127.0.0.1:8000/users/patients/", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access"),
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+
+      // csrf token get from html
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split("; ");
+          for (let cookie of cookies) {
+            if (cookie.startsWith(name + "=")) {
+              cookieValue = cookie.substring(name.length + 1);
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      };
+
+
+
+      // create patient
+
+      async function addPatient() {
+
+        // edit page
+
+        const editProfileUser_id =
+          document.getElementById("editProfileUser_id");
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        // value to json
+        const fromDataJson = {
+          user_id: editProfileUser_id.value,
+          phone_number: editProfilePhone.value,
+          gender: editProfileGender.value,
+          blood_group: editProfileBloodGroup2.value,
+          age: editProfileAge.value,
+          address: editProfileAddress.value,
+          short_bio: editProfileShortBio.value,
+          visible_to_doctors: editProfilePescriptionStatus.value,
+        };
+
+        console.log(fromDataJson);
+
+        const csrftoken = getCookie("csrftoken");
+
+        const response = await fetch("http://127.0.0.1:8000/api/patients/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
+          },
+          body: JSON.stringify(fromDataJson),
+        });
+
+        const result = await response.json();
+        console.log(result);
+      };
+
+      // patient prodile create or update
+
+      async createOrUpdate(){
+            
+        if(){
+
+        }
+
+      };
     </script>
   </body>
 </html>

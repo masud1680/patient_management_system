@@ -1,8 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 from users.views import  RegisterView, ActiveAccountView ,LoginView, LogoutView, ForgotPassword, PasswordResetSent, ResetPassword, redirect_dashboard, patient_dashboard, doctor_dashboard
+# from rest_framework.routers import DefaultRouter
+# from .views import PatientProfileViewSet, DoctorProfileViewSet
+
+# router = DefaultRouter()
+# router.register('patients', PatientProfileViewSet)
+# router.register('doctors', DoctorProfileViewSet)
+
 
 urlpatterns = [
-    
+    # path('', include(router.urls)),
     path('register/', RegisterView, name='register'),
     path('activate/<int:user_id>/<str:token>/', ActiveAccountView , ),
     path('login/', LoginView, name='login'),

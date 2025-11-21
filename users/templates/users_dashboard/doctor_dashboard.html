@@ -77,10 +77,17 @@
                     <p class="text-xs text-gray-500 dark:text-gray-400">Administrator</p>
                 </div>
             </div>
-            <button class="w-full mt-3 flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <ion-icon name="log-out-outline" class="text-lg mr-2"></ion-icon>
-                <span class="sidebar-text">Logout</span>
-            </button>
+            <div class="flex items-center">
+        <a href="{% url 'logout' %}">
+           
+        <button
+          class="w-full mt-3 flex items-center justify-center py-2 px-4 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-gray-700"
+        >
+          <ion-icon name="log-out-outline" class="text-lg mr-2"></ion-icon>
+          <span class="sidebar-text">Logout</span>
+        </button>
+        </a>
+        </div>
         </div>
     </aside>
 
@@ -113,13 +120,176 @@
                     <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 hidden ring-1 ring-black ring-opacity-5 z-10">
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                        <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
                     </div>
                 </div>
             </div>
         </header>
 
         <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 space-y-6">
+             
+    <!-- Profile view -->
+     <section id="profileView" class="content-section" data-aos="fade-up">
+  <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300">
+
+    <!-- Left: Avatar -->
+    <section class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10">
+      <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+        <img id="viewAvatar" src="https://placehold.co/150x150?text=Avatar" alt="avatar" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
+      </div>
+
+      <div class="text-center">
+        <p class="text-xl font-semibold text-gray-800 dark:text-gray-100">Dr. Md. Masud</p>
+        <p class="text-sm text-gray-500 dark:text-gray-300">Cardiologist</p>
+      </div>
+
+      <a href="#" data-section="profileEdit" class="sidebar-link">
+        <button class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition">
+          Edit Profile
+        </button>
+      </a>
+    </section>
+
+    <!-- Right: Details text instead of inputs -->
+    <section class="md:col-span-2 grid gap-6">
+
+      <!-- Row 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Full Name</p>
+          <p class="mt-1 text-gray-600 dark:text-gray-300">Dr. Md. Masud</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Email</p>
+          <p class="mt-1 text-gray-600 dark:text-gray-300">you@example.com</p>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Phone</p>
+          <p class="mt-1 text-gray-600 dark:text-gray-300">+8801...</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Specialization</p>
+          <p class="mt-1 text-gray-600 dark:text-gray-300">Cardiologist</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Availability</p>
+          <p class="mt-1 text-gray-600 dark:text-gray-300">Mon–Fri, 9 AM - 5 PM</p>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Address</p>
+        <p class="mt-1 text-gray-600 dark:text-gray-300">Street, City, Country</p>
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Short Bio</p>
+        <p class="mt-1 text-gray-600 dark:text-gray-300 leading-relaxed">
+          A short professional profile...
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="flex gap-6 mt-4">
+        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Followers:</span> 2.5k</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Articles:</span> 13</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Papers:</span> 7</p>
+      </div>
+
+    </section>
+
+  </div>
+</section>
+
+   
+      <!-- Profile edit form -->
+      <section id="profileEdit" class="content-section" data-aos="fade-up">
+      <form  class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300">
+        <!-- Left: avatar -->
+        <section class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10">
+          <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+            <img id="avatarPreview" src="https://placehold.co/150x150?text=Avatar" alt="avatar" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
+            <label for="avatarInput" class="absolute bottom-2 right-2 bg-indigo-600 text-white rounded-full p-2 shadow-md cursor-pointer no-print hover:bg-indigo-700 transition" title="Change avatar">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9.414A2 2 0 0016.414 8L12 3.586A2 2 0 0010.586 3H4z"/></svg>
+            </label>
+            <input id="avatarInput" class="avatar-input" type="file" accept="image/*">
+          </div>
+          <div class="text-center text-sm text-gray-600 dark:text-gray-300">Accepted: JPG, PNG. Max 2MB</div>
+          <button type="button" id="printBtn" class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 no-print">Preview / Print</button>
+        </section>
+
+        <!-- Right: fields -->
+        <section class="md:col-span-2 grid gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-medium">Fast name</label>
+              <input name="full_name" id="full_name" required class="mt-1 block w-1/2 rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder=" Dr. ">
+            </div>
+            <div>
+              <label class="text-sm font-medium">Last name</label>
+              <input name="full_name" id="full_name" required class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Masud">
+            </div>
+            <div>
+              <label class="text-sm font-medium">Email</label>
+              <input type="email" name="email" id="email" required class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="you@example.com">
+            </div>
+            <div>
+              <label class="text-sm font-medium">Phone</label>
+              <input name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="+8801...">
+            </div>
+            </div>
+
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-sm font-medium">Phone</label>
+              <input name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="+8801...">
+            </div> 
+            <div>
+              <label class="text-sm font-medium">Specialization</label>
+              <input name="specialization" id="specialization" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="e.g. Cardiologist">
+            </div>
+            <div>
+              <label class="text-sm font-medium">Availability</label>
+              <input name="availability" id="availability" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Mon-Fri, 9am - 5pm">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-medium">Address</label>
+            <input name="address" id="address" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Street, City, Country">
+          </div>
+
+          <div>
+            <label class="text-sm font-medium">Short bio</label>
+            <textarea name="bio" id="bio" rows="4" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="A short professional profile..."></textarea>
+          </div>
+
+          <div class="flex gap-3 justify-end mt-2 no-print">
+                                <a
+                href="#"
+                data-section="profileView"
+                class="sidebar-link"
+                >
+                 <button type="button" id="cancelBtn" class="px-4 py-2 rounded-md border border-gray-300">Cancel</button>
+                 <button type="submit" id="saveBtn" class="px-5 py-2 rounded-md bg-indigo-600 text-white">Save</button>
+          </a>
+            
+          </div>
+        </section>
+      </form>
+    </section>
+
+    <!--DASHBOARD-->
             <section id="dashboard" class="content-section" data-aos="fade-up">
                 <h1 class="text-3xl font-semibold text-gray-800 dark:text-white mb-6">Dashboard</h1>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">

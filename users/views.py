@@ -195,7 +195,7 @@ def ResetPassword(request, reset_id):
 
     return render(request, 'auth/reset_password.html') 
 
-@login_required
+
 def patient_dashboard(request):
 
     return render(request, 'users_dashboard/patient_dashboard.html')
@@ -218,3 +218,34 @@ def redirect_dashboard(request):
     
     else :
         return redirect('no-permission')
+    
+
+
+# from rest_framework.viewsets import ModelViewSet
+# from .models import PatientProfile, DoctorProfile
+# from .serializers import PatientProfileSerializer, DoctorProfileSerializer
+# from .permissions import IsDoctor, IsPatient
+# from rest_framework.permissions import IsAuthenticated
+
+# class PatientProfileViewSet(ModelViewSet):
+#     queryset = PatientProfile.objects.all()
+#     serializer_class = PatientProfileSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_queryset(self):
+#         user = self.request.user
+#         if user.groups.filter(name="doctor").exists():
+#             return PatientProfile.objects.filter(visible_to_doctors=True)
+#         return PatientProfile.objects.filter(user=user)
+
+
+# class DoctorProfileViewSet(ModelViewSet):
+#     queryset = DoctorProfile.objects.all()
+#     serializer_class = DoctorProfileSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_queryset(self):
+#         user = self.request.user
+#         if user.groups.filter(name="patient").exists():
+#             return DoctorProfile.objects.all()
+#         return DoctorProfile.objects.filter(user=user)

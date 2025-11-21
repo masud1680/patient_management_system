@@ -1,7 +1,9 @@
 # core/serializers.py
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import PatientProfile, DoctorProfile, Prescription, PrescriptionMedicine
+from .models import  Prescription, PrescriptionMedicine
+from users.serializers import DoctorProfileSerializer, PatientProfileSerializer
+from users.models import PatientProfile, DoctorProfile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,15 +16,16 @@ class PatientProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PatientProfile
-        fields = ['id','user','user_id','age','address','visible_to_doctors']
-
+        fields = ['id','user','user_id','phone_number','gender','blood_group', 'age','address','short_bio','visible_to_doctors']
+        # read_only_fields = ['user']
+        
 class DoctorProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     user_id = serializers.PrimaryKeyRelatedField(source='user', queryset=User.objects.all(), write_only=True)
 
     class Meta:
         model = DoctorProfile
-        fields = ['id','user','user_id','qualification','specialization']
+        fields = ['id','user','user_id','qualification','specialization','phone_number','gender','short_bio',]
 
 class PrescriptionMedicineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)  # allow update with id

@@ -10,8 +10,8 @@ from .models import PatientProfile, DoctorProfile, Prescription
 from .serializers import PatientProfileSerializer, DoctorProfileSerializer, PrescriptionSerializer
 from .permissions import IsDoctor, IsPatient, IsDoctorOrReadOnly
 
-# PatientProfile viewset
-class PatientProfileViewSet(viewsets.ReadOnlyModelViewSet):
+
+class PatientProfileViewSet(viewsets.ModelViewSet):
     queryset = PatientProfile.objects.select_related('user').all()
     serializer_class = PatientProfileSerializer
 

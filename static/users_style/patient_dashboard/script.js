@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function showSection(sectionId) {
+    function showSection(sectionId) {console.log(sectionId);
         contentSections.forEach(section => {
             if (section.id === sectionId) {
                 section.classList.remove('hidden');
@@ -324,13 +324,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // working with rest api
-    const API_BASE = "http://127.0.0.1:8000/api";
-    // ✅ Get auth token (if using JWT OR session cookie)
-    function getHeaders() {
-        return {
-            "Content-Type": "application/json"
-        };
-    }
+    // const API_BASE = "http://127.0.0.1:8000/api";
+    // // ✅ Get auth token (if using JWT OR session cookie)
+    // function getHeaders() {
+    //     return {
+    //         "Content-Type": "application/json"
+    //     };
+    // }
     // get & show all pescriptions
 
     // const pescriptions_list = document.getElementById("pescription_list");
@@ -341,6 +341,10 @@ document.addEventListener('DOMContentLoaded', function () {
     //     console.log(res.json());
     //     return await res.json();
     // };
+
+
+
+ 
 
 
 
