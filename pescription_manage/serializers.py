@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import  Prescription, PrescriptionMedicine
-from users.serializers import DoctorProfileSerializer, PatientProfileSerializer
+# from users.serializers import DoctorProfileSerializer, PatientProfileSerializer
 from users.models import PatientProfile, DoctorProfile
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class DoctorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DoctorProfile
-        fields = ['id','user','user_id','qualification','specialization','phone_number','gender','short_bio',]
+        fields = ['id','user','user_id','qualification','specialization','phone_number','gender','age','address','short_bio',]
 
 class PrescriptionMedicineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)  # allow update with id
