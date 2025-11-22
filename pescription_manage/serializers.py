@@ -25,7 +25,7 @@ class DoctorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DoctorProfile
-        fields = ['id','user','user_id','qualification','specialization','phone_number','gender','age','address','short_bio',]
+        fields = ['id','user','user_id','qualification','specialization','phone_number','gender','blood_group','age','address','short_bio',]
 
 class PrescriptionMedicineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)  # allow update with id

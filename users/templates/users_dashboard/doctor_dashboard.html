@@ -26,11 +26,28 @@
 
     <aside id="sidebar" class="sidebar sidebar-expanded bg-white dark:bg-gray-800 shadow-xl flex flex-col space-y-2 border-r border-gray-200 dark:border-gray-700 fixed inset-y-0 left-0 z-30 overflow-y-auto">
         <div class="h-16 flex items-center justify-center px-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-            <div class="flex items-center">
-                <svg class="h-10 w-10 text-blue-600 dark:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                </svg>
-                <span class="sidebar-logo-text ml-3 text-2xl font-bold text-gray-800 dark:text-white">MediSys</span>
+              <a href="{% url 'home-page' %}">
+          <div class="flex items-center">
+            <svg
+              class="h-10 w-10 text-blue-600 dark:text-blue-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+              />
+            </svg>
+            <span
+              class="sidebar-logo-text ml-3 text-2xl font-bold text-gray-800 dark:text-white"
+              >PMS</span
+            >
+          </div>
+        </a>
             </div>
         </div>
 
@@ -73,7 +90,7 @@
             <div class="flex items-center">
                 <img src="https://www.codewithfaraz.com/tools/placeholder?size=32&text=EC" alt="User Avatar" class="h-10 w-10 rounded-full object-cover">
                 <div class="profile-info ml-3">
-                    <p id="doctor_name_02" class="text-sm font-medium text-gray-800 dark:text-white">Dr. Emily Carter</p>
+                    <p id="doctor_name_02" class="text-sm font-medium text-gray-800 dark:text-white"></p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Administrator</p>
                     <input id="get_user_id" hidden value="{{request.user.id}}" />
                 </div>
@@ -115,7 +132,7 @@
                 <div class="relative">
                     <button id="userMenuButton" class="flex items-center space-x-2 focus:outline-none">
                         <img src="https://www.codewithfaraz.com/tools/placeholder?size=32&text=EC" alt="User Avatar" class="h-8 w-8 rounded-full object-cover">
-                        <span id="doctor_name_01" class="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300">Dr. Carter</span>
+                        <span id="doctor_name_01" class="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300"></span>
                         <ion-icon name="chevron-down-outline" class="hidden md:inline text-xs text-gray-500 dark:text-gray-400"></ion-icon>
                     </button>
                     <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 hidden ring-1 ring-black ring-opacity-5 z-10">
@@ -1278,12 +1295,12 @@
         profileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
         // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
         profileBloodGroup1.innerHTML = `${data.blood_group} `;
-        profileQualification.innerHTML = `${data.blood_group} `;
+        profileQualification.innerHTML = `${data.qualification} `;
         profileEmail.innerHTML = `${data.user.email} `;
         profilePhone.innerHTML = `${data.phone_number} `;
         profileGender.innerHTML = `${data.gender} `;
         profileAge.innerHTML = `${data.age} `;
-        profileSpecialization.innerHTML = `${data.visible_to_doctors}`;
+        profileSpecialization.innerHTML = `${data.specialization}`;
         profileAddress.innerHTML = `${data.address} `;
         profileShortBio.innerHTML = `${data.short_bio} `;
 
@@ -1445,14 +1462,7 @@
         });
       }
 
-      // default call function + dashboard call function
-      function dashboard() {
-        set_doctor_Name();
-        set_doctor_total_pescriptions();
-        set_doctor_total_unique_doctors();
-      }
-
-      dashboard();
+ 
 
     
 
@@ -1590,6 +1600,16 @@
           addPatient();
         }
       } {% endcomment %}
+
+
+           // default call function + dashboard call function
+      function dashboard() {
+        set_doctor_Name();
+      //  set_doctor_total_pescriptions();
+        //set_doctor_total_unique_doctors();
+      }
+
+      dashboard();
     </script>
 
 </body>

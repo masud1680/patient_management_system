@@ -30,7 +30,7 @@
                             </div>
                         </div> {% endcomment %}
                         <a href="{% url 'contact-page' %}" class="nav-item nav-link">Contact</a>
-                        <a href="{% url 'patient-dashboard' %}" class="nav-item nav-link">Dashboard</a>
+                        <a href=" {% if is_patient %}{% url 'patient-dashboard' %} {% else %} {% url 'doctor-dashboard' %}{% endif %}" class="nav-item nav-link">Dashboard</a>
                     </div>
                 </div>
             </nav>

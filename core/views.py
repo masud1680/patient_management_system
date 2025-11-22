@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 
 
-def homePage(request):
+def homePage(request):       
+        is_patient = request.user.groups.filter(name="patient").exists()
+             
 
-    return render(request, 'index.html')
+        return render(request, 'index.html', {"is_patient" : is_patient})
 
 
 def aboutPage(request):
