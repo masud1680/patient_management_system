@@ -73,8 +73,9 @@
             <div class="flex items-center">
                 <img src="https://www.codewithfaraz.com/tools/placeholder?size=32&text=EC" alt="User Avatar" class="h-10 w-10 rounded-full object-cover">
                 <div class="profile-info ml-3">
-                    <p class="text-sm font-medium text-gray-800 dark:text-white">Dr. Emily Carter</p>
+                    <p id="doctor_name_02" class="text-sm font-medium text-gray-800 dark:text-white">Dr. Emily Carter</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Administrator</p>
+                    <input id="get_user_id" hidden value="{{request.user.id}}" />
                 </div>
             </div>
             <div class="flex items-center">
@@ -114,11 +115,11 @@
                 <div class="relative">
                     <button id="userMenuButton" class="flex items-center space-x-2 focus:outline-none">
                         <img src="https://www.codewithfaraz.com/tools/placeholder?size=32&text=EC" alt="User Avatar" class="h-8 w-8 rounded-full object-cover">
-                        <span class="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300">Dr. Carter</span>
+                        <span id="doctor_name_01" class="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300">Dr. Carter</span>
                         <ion-icon name="chevron-down-outline" class="hidden md:inline text-xs text-gray-500 dark:text-gray-400"></ion-icon>
                     </button>
                     <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 hidden ring-1 ring-black ring-opacity-5 z-10">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
+                        <a href="#" data-section="profileView" class="sidebar-link block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
                         <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
                     </div>
@@ -128,166 +129,445 @@
 
         <main class="flex-1 overflow-x-hidden overflow-y-auto p-6 space-y-6">
              
-    <!-- Profile view -->
-     <section id="profileView" class="content-section" data-aos="fade-up">
-  <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300">
+    <!--++++++++++ using for profile view start-->
 
-    <!-- Left: Avatar -->
-    <section class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10">
-      <div class="relative w-36 h-36 sm:w-40 sm:h-40">
-        <img id="viewAvatar" src="https://placehold.co/150x150?text=Avatar" alt="avatar" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
-      </div>
+        <!-- Profile view -->
+        <section id="profileView" class="content-section" data-aos="fade-up">
+          <div
+            class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300"
+          >
+            <!-- Left: Avatar -->
+            <section
+              class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
+            >
+              <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="viewAvatar"
+                  src="https://placehold.co/150x150?text=Avatar"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+              </div>
 
-      <div class="text-center">
-        <p class="text-xl font-semibold text-gray-800 dark:text-gray-100">Dr. Md. Masud</p>
-        <p class="text-sm text-gray-500 dark:text-gray-300">Cardiologist</p>
-      </div>
-
-      <a href="#" data-section="profileEdit" class="sidebar-link">
-        <button class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition">
-          Edit Profile
-        </button>
-      </a>
-    </section>
-
-    <!-- Right: Details text instead of inputs -->
-    <section class="md:col-span-2 grid gap-6">
-
-      <!-- Row 1 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Full Name</p>
-          <p class="mt-1 text-gray-600 dark:text-gray-300">Dr. Md. Masud</p>
-        </div>
-
-        <div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Email</p>
-          <p class="mt-1 text-gray-600 dark:text-gray-300">you@example.com</p>
-        </div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Phone</p>
-          <p class="mt-1 text-gray-600 dark:text-gray-300">+8801...</p>
-        </div>
-
-        <div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Specialization</p>
-          <p class="mt-1 text-gray-600 dark:text-gray-300">Cardiologist</p>
-        </div>
-
-        <div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Availability</p>
-          <p class="mt-1 text-gray-600 dark:text-gray-300">Mon–Fri, 9 AM - 5 PM</p>
-        </div>
-      </div>
-
-      <!-- Address -->
-      <div>
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Address</p>
-        <p class="mt-1 text-gray-600 dark:text-gray-300">Street, City, Country</p>
-      </div>
-
-      <!-- Bio -->
-      <div>
-        <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Short Bio</p>
-        <p class="mt-1 text-gray-600 dark:text-gray-300 leading-relaxed">
-          A short professional profile...
-        </p>
-      </div>
-
-      <!-- Stats -->
-      <div class="flex gap-6 mt-4">
-        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Followers:</span> 2.5k</p>
-        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Articles:</span> 13</p>
-        <p class="text-sm text-gray-600 dark:text-gray-300"><span class="font-medium">Papers:</span> 7</p>
-      </div>
-
-    </section>
-
-  </div>
-</section>
-
-   
-      <!-- Profile edit form -->
-      <section id="profileEdit" class="content-section" data-aos="fade-up">
-      <form  class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300">
-        <!-- Left: avatar -->
-        <section class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10">
-          <div class="relative w-36 h-36 sm:w-40 sm:h-40">
-            <img id="avatarPreview" src="https://placehold.co/150x150?text=Avatar" alt="avatar" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
-            <label for="avatarInput" class="absolute bottom-2 right-2 bg-indigo-600 text-white rounded-full p-2 shadow-md cursor-pointer no-print hover:bg-indigo-700 transition" title="Change avatar">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9.414A2 2 0 0016.414 8L12 3.586A2 2 0 0010.586 3H4z"/></svg>
-            </label>
-            <input id="avatarInput" class="avatar-input" type="file" accept="image/*">
-          </div>
-          <div class="text-center text-sm text-gray-600 dark:text-gray-300">Accepted: JPG, PNG. Max 2MB</div>
-          <button type="button" id="printBtn" class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 no-print">Preview / Print</button>
-        </section>
-
-        <!-- Right: fields -->
-        <section class="md:col-span-2 grid gap-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="text-sm font-medium">Fast name</label>
-              <input name="full_name" id="full_name" required class="mt-1 block w-1/2 rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder=" Dr. ">
-            </div>
-            <div>
-              <label class="text-sm font-medium">Last name</label>
-              <input name="full_name" id="full_name" required class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Masud">
-            </div>
-            <div>
-              <label class="text-sm font-medium">Email</label>
-              <input type="email" name="email" id="email" required class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="you@example.com">
-            </div>
-            <div>
-              <label class="text-sm font-medium">Phone</label>
-              <input name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="+8801...">
-            </div>
-            </div>
-
-          
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label class="text-sm font-medium">Phone</label>
-              <input name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="+8801...">
-            </div> 
-            <div>
-              <label class="text-sm font-medium">Specialization</label>
-              <input name="specialization" id="specialization" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="e.g. Cardiologist">
-            </div>
-            <div>
-              <label class="text-sm font-medium">Availability</label>
-              <input name="availability" id="availability" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Mon-Fri, 9am - 5pm">
-            </div>
-          </div>
-
-          <div>
-            <label class="text-sm font-medium">Address</label>
-            <input name="address" id="address" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="Street, City, Country">
-          </div>
-
-          <div>
-            <label class="text-sm font-medium">Short bio</label>
-            <textarea name="bio" id="bio" rows="4" class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2" placeholder="A short professional profile..."></textarea>
-          </div>
-
-          <div class="flex gap-3 justify-end mt-2 no-print">
-                                <a
-                href="#"
-                data-section="profileView"
-                class="sidebar-link"
+              <div class="text-center">
+                <p
+                  id="profileName"
+                  class="text-xl font-semibold text-gray-800 dark:text-gray-100"
                 >
-                 <button type="button" id="cancelBtn" class="px-4 py-2 rounded-md border border-gray-300">Cancel</button>
-                 <button type="submit" id="saveBtn" class="px-5 py-2 rounded-md bg-indigo-600 text-white">Save</button>
-          </a>
-            
+                  Null
+                </p>
+                <p
+                  id="profileBloodGroup1"
+                  class="text-sm text-gray-500 dark:text-gray-300"
+                >
+                  Null
+                </p>
+              </div>
+
+              <a href="#" data-section="profileEdit" class="sidebar-link">
+                <button
+                  class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition"
+                >
+                  Edit Profile
+                </button>
+              </a>
+            </section>
+
+            <!-- Right: Details text instead of inputs -->
+            <section class="md:col-span-2 grid gap-6">
+              <!-- Row 1 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% comment %}
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Full Name
+                  </p>
+                  <p
+                    id="profileFullName"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+                {% endcomment %}
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Phone
+                  </p>
+                  <p
+                    id="profilePhone"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    +8801...
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Email
+                  </p>
+                  <p
+                    id="profileEmail"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    you@example.com
+                  </p>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Blood Group
+                  </p>
+                  <p
+                    id="profileBloodGroup2"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Pescription Status
+                  </p>
+                  <p
+                    id="profilePescriptionStatus"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Gender
+                  </p>
+                  <p
+                    id="profileGender"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Age
+                  </p>
+                  <p
+                    id="profileAge"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    Null
+                  </p>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Address
+                </p>
+                <p
+                  id="profileAddress"
+                  class="mt-1 text-gray-600 dark:text-gray-300"
+                >
+                  Street, City, Country
+                </p>
+              </div>
+
+              <!-- Bio -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Short Bio
+                </p>
+                <p
+                  id="profileShortBio"
+                  class="mt-1 text-gray-600 dark:text-gray-300 leading-relaxed"
+                >
+                  A short professional profile...
+                </p>
+              </div>
+
+              <!-- Stats -->
+              <div class="flex gap-6 mt-4">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Followers:</span> 2.5k
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Articles:</span> 13
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Papers:</span> 7
+                </p>
+              </div>
+            </section>
           </div>
         </section>
-      </form>
-    </section>
+
+        <!-- Profile edit form -->
+        <section id="profileEdit" class="content-section" data-aos="fade-up">
+          <form
+            id="patientProfileForm"
+            class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300"
+          >
+            <!-- Left: avatar -->
+            <section
+              class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
+            >
+              <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="avatarPreview"
+                  src="https://placehold.co/150x150?text=Avatar"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+                <label
+                  for="avatarInput"
+                  class="absolute bottom-2 right-2 bg-indigo-600 text-white rounded-full p-2 shadow-md cursor-pointer no-print hover:bg-indigo-700 transition"
+                  title="Change avatar"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9.414A2 2 0 0016.414 8L12 3.586A2 2 0 0010.586 3H4z"
+                    />
+                  </svg>
+                </label>
+                <input
+                  id="avatarInput"
+                  class="avatar-input"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+              <div class="text-center text-sm text-gray-600 dark:text-gray-300">
+                Accepted: JPG, PNG. Max 2MB
+              </div>
+              <div class="text-center">
+                <p
+                  id="editProfileName"
+                  class="text-xl font-semibold text-gray-800 dark:text-gray-100"
+                >
+                  Null
+                </p>
+                <p
+                  id="editProfileBloodGroup1"
+                  class="text-sm text-gray-500 dark:text-gray-300"
+                >
+                  Null
+                </p>
+              </div>
+            </section>
+
+            <!-- Right: fields -->
+            <section class="md:col-span-2 grid gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm font-medium">Fast name</label>
+                  <input
+                    name="full_name"
+                    id="editProfileFastName"
+                    required
+                    class="dark:text-black mt-1 block w-1/2 rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder=" Dr. "
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Last name</label>
+                  <input
+                    name="full_name"
+                    id="editProfileLastName"
+                    required
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Masud"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="editProfileEmail"
+                    required
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-medium">Phone</label>
+                  <input
+                    required
+                    name="phone"
+                    id="editProfilePhone"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="+8801..."
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {% comment %}
+                <div>
+                  <label class="text-sm font-medium">Blood Group</label>
+                  <input
+                    name="specialization"
+                    id="editProfileBloodGroup2"
+                    class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="e.g. Cardiologist"
+                  />
+                </div>
+                {% endcomment %}
+                <div>
+                  <label
+                    for="editProfileBloodGroup02"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Blood Group</label
+                  >
+                  <select
+                    required
+                    id="editProfileBloodGroup2"
+                    name="editProfileBloodGroup02"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 dark:text-black text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+
+                {% comment %}
+                <div>
+                  <label class="text-sm font-medium">Pescription Status</label>
+                  <input
+                    name="availability"
+                    id="editProfilePescriptionStatus"
+                    class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Mon-Fri, 9am - 5pm"
+                  />
+                </div>
+
+                {% endcomment %}
+                <div>
+                  <label
+                    for="editProfilePescriptionStatusv"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Pescription Status</label
+                  >
+                  <select
+                    id="editProfilePescriptionStatus"
+                    name="editProfilePescriptionStatusv"
+                    class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="true" selected>True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="editProfileGenderv"
+                    class="block dark:text-white text-gray-700 font-semibold mb-2"
+                    >Gender</label
+                  >
+                  <select
+                    required
+                    id="editProfileGender"
+                    name="editProfileGenderv"
+                    class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="text-sm font-medium">Age</label>
+                  <input
+                    required
+                    name="age"
+                    id="editProfileAge"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="18"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-sm font-medium">Address</label>
+                <input
+                  name="address"
+                  id="editProfileAddress"
+                  class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                  placeholder="Street, City, Country"
+                />
+              </div>
+
+              <div>
+                <label class="text-sm font-medium">Short bio</label>
+                <textarea
+                  name="bio"
+                  id="editProfileShortBio"
+                  rows="4"
+                  class="mt-1 block w-full rounded-md border-gray-200 dark:text-black dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                  placeholder="Type your bio..."
+                ></textarea>
+              </div>
+
+              <input
+                id="editProfileUser_id"
+                hidden
+                value="{{request.user.id}}"
+              />
+              <div class="flex gap-3 justify-end mt-2 no-print">
+                <a href="#" data-section="profileView" class="sidebar-link">
+                  <button
+                    type="button"
+                    id="cancelBtn"
+                    class="px-4 py-2 rounded-md border border-gray-300"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onclick="createOrUpdate()"
+                    type="submit"
+                    id="saveBtn"
+                    class="px-5 py-2 rounded-md bg-indigo-600 text-white"
+                  >
+                    Save
+                  </button>
+                </a>
+              </div>
+            </section>
+          </form>
+        </section>
+
+        <!--++++++++++ using for profile update close-->
 
     <!--DASHBOARD-->
             <section id="dashboard" class="content-section" data-aos="fade-up">
@@ -827,5 +1107,490 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{% static 'users_style/doctor_dashboard/script.js' %}"></script>
+
+    
+    <script>
+      // working with rest api
+      const API_BASE = "http://127.0.0.1:8000/api";
+      // ✅ Get auth token (if using JWT OR session cookie)
+      function getHeaders() {
+        return {
+          "Content-Type": "application/json",
+        };
+      }
+
+      // get & show all pescriptions
+
+      // ✅ 1) Get All Prescriptions
+      async function getAllPrescriptions() {
+        const res = await fetch(`${API_BASE}/prescriptions`);
+        data = await res.json();
+        //console.log(res.json());
+        return data;
+      }
+
+      async function load_All_pescriptions() {
+        const data = await getAllPrescriptions();
+        let patient_id = await find_patient_id();
+        //console.log(data.length);
+
+        if (data.length == 0) {
+          const pescriptionTableContainer = document.getElementById(
+            "pescription_table_container"
+          );
+          pescriptionTableContainer.innerHTML = "No pescription......";
+        } else {
+          const tbody = document.getElementById("pescription_list");
+          tbody.innerHTML = "";
+
+          data.forEach((p) => {
+            if (patient_id == p.patient.id) {
+              const tr = document.createElement("tr");
+
+              tr.innerHTML = `
+
+
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.id
+                                          }</td>
+                                          <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white">${
+                                            p.doctor.user.first_name
+                                          } ${p.doctor.user.last_name}</td>
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.diagnosis
+                                          }</td>
+
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.created_at.split("T")[0]
+                                          }</td>
+                                          <td class="px-6 py-4 whitespace-nowrap">
+                                              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">${p.medicines
+                                                .map((m) => m.medicine_name)
+                                                .join(", ")}</span>
+                                          </td>
+                                          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"><ion-icon name="eye-outline"></ion-icon></button>
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"><ion-icon name="pencil-outline"></ion-icon></button>
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"><ion-icon name="trash-outline"></ion-icon></button>
+                                          </td>
+
+              `;
+
+              tbody.appendChild(tr);
+            }
+          });
+        }
+      }
+
+      <!--Doctors personal Ditels-->
+      const user_id = document.getElementById("get_user_id").value;
+      //console.log("user id :" , user_id);
+
+      async function GetAllDoctorsDitels() {
+        let res = await fetch(`${API_BASE}/doctors`);
+        return res.json();
+      }
+
+      async function find_doctor_id() {
+        let data = await GetAllDoctorsDitels();
+        let doctor_id = -1;
+        data.forEach((v) => {
+          if (v.user.id == user_id) {
+            doctor_id = v.id;
+          }
+        });
+
+        return doctor_id;
+      }
+
+      async function GetSingleDoctorDitels() {
+        let doctor_id = await find_doctor_id();
+        console.log("doctor_ id : ", doctor_id);
+        let res = await fetch(`${API_BASE}/doctors/${doctor_id}`);
+
+        return res.json();
+      }
+
+      async function set_doctor_Name() {
+        let data = await GetSingleDoctorDitels();
+        //console.log("user data : ", data);
+        const doctorName02 = document.getElementById("doctor_name_02");
+        doctorName02.innerHTML = "";
+        doctorName02.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+
+        const doctorName01 = document.getElementById("doctor_name_01");
+        doctorName01.innerHTML = "";
+        doctorName01.innerHTML = `${data.user.last_name}`;
+      }
+
+      function bloodIndexFind(blood_group) {
+        if (blood_group == "A+") {
+          return 0;
+        } else if (blood_group == "A-") {
+          return 1;
+        } else if (blood_group == "B+") {
+          return 2;
+        } else if (blood_group == "B-") {
+          return 3;
+        } else if (blood_group == "AB+") {
+          return 4;
+        } else if (blood_group == "AB-") {
+          return 5;
+        } else if (blood_group == "O+") {
+          return 6;
+        } else if (blood_group == "O-") {
+          return 7;
+        }
+      }
+
+      function genderIndexFind(gender) {
+        if (gender == "Male") {
+          return 0;
+        } else if (gender == "Female") {
+          return 1;
+        }
+      }
+
+      // show patient profile all ditels
+      async function set_patient_profile_ditels() {
+        let data = await GetSinglePatientDitels();
+
+        //console.log(data);
+
+        // set data -> html
+
+        const profileName = document.getElementById("profileName");
+        const profileBloodGroup1 =
+          document.getElementById("profileBloodGroup1");
+        const profileBloodGroup2 =
+          document.getElementById("profileBloodGroup2");
+        //const profileFullName = document.getElementById("profileFullName");
+        const profileEmail = document.getElementById("profileEmail");
+        const profilePhone = document.getElementById("profilePhone");
+        const profilePescriptionStatus = document.getElementById(
+          "profilePescriptionStatus"
+        );
+        const profileGender = document.getElementById("profileGender");
+        const profileAge = document.getElementById("profileAge");
+        const profileAddress = document.getElementById("profileAddress");
+        const profileShortBio = document.getElementById("profileShortBio");
+
+        profileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        profileBloodGroup1.innerHTML = `${data.blood_group} `;
+        profileBloodGroup2.innerHTML = `${data.blood_group} `;
+        profileEmail.innerHTML = `${data.user.email} `;
+        profilePhone.innerHTML = `${data.phone_number} `;
+        profileGender.innerHTML = `${data.gender} `;
+        profileAge.innerHTML = `${data.age} `;
+        profilePescriptionStatus.innerHTML = `${data.visible_to_doctors}`;
+        profileAddress.innerHTML = `${data.address} `;
+        profileShortBio.innerHTML = `${data.short_bio} `;
+
+        // edit page
+        const editProfileName = document.getElementById("editProfileName");
+        const editProfileBloodGroup1 = document.getElementById(
+          "editProfileBloodGroup1"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileFastName = document.getElementById(
+          "editProfileFastName"
+        );
+        const editProfileLastName = document.getElementById(
+          "editProfileLastName"
+        );
+        const editProfileEmail = document.getElementById("editProfileEmail");
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        editProfileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        editProfileBloodGroup1.innerHTML = `${data.blood_group} `;
+        editProfileFastName.value = `${data.user.first_name} `;
+        editProfileLastName.value = `${data.user.last_name}`;
+        editProfileBloodGroup1.value = `${data.blood_group} `;
+
+        editProfileEmail.value = `${data.user.email} `;
+        editProfilePhone.value = `${data.phone_number} `;
+        editProfileGender.selectedIndex = genderIndexFind(data.gender);
+        editProfileAge.value = `${data.age} `;
+        editProfileBloodGroup2.selectedIndex = bloodIndexFind(data.blood_group);
+        editProfilePescriptionStatus.value = `${data.visible_to_doctors}`;
+        editProfileAddress.value = `${data.address} `;
+        editProfileShortBio.value = `${data.short_bio} `;
+      }
+
+
+
+
+      // working for every patient total pescription
+      async function getPatientCount(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/prescription-count/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
+
+      async function set_patient_total_pescriptions() {
+        let patient_id = await find_patient_id();
+        let data = await getPatientCount(patient_id);
+        //console.log(data);
+        const totalPescriptionCount = document.getElementById(
+          "total_pescription_count"
+        );
+        totalPescriptionCount.innerHTML = "";
+        totalPescriptionCount.innerHTML = `${data.total_prescriptions}`;
+      }
+
+      // working for every patient total unique doctors
+      async function getPatientUniqueDoctorsCount(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/analytics/unique-doctors/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
+
+      async function set_patient_total_unique_doctors() {
+        let patient_id = await find_patient_id();
+        let data = await getPatientUniqueDoctorsCount(patient_id);
+        //console.log(data);
+        const totalUniqueDoctorsCount = document.getElementById(
+          "total_unique_doctors_count"
+        );
+        totalUniqueDoctorsCount.innerHTML = "";
+        totalUniqueDoctorsCount.innerHTML = `${data.unique_doctor_count}`;
+      }
+
+      // working for every patient total unique doctors ditels
+      async function getPatientUniqueDoctorsDitels(id) {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/analytics/unique-doctors/details/?patient_id=${id}`
+        );
+        const data = await res.json();
+        //console.log(data);
+        return data;
+      }
+
+      async function set_patient_total_unique_doctors_ditels() {
+        let patient_id = await find_patient_id();
+        let data = await getPatientUniqueDoctorsDitels(patient_id);
+        // console.log(data);
+        const totalUniqueDoctorsDitels = document.getElementById(
+          "total_unique_doctors_ditels"
+        );
+        totalUniqueDoctorsDitels.innerHTML = "";
+
+        data.doctors.forEach((d) => {
+          totalUniqueDoctorsDitels.innerHTML = `
+
+                              <div
+                    class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
+                    data-aos="zoom-in"
+                  >
+                    <div class="p-6 flex flex-col items-center text-center">
+                      <img
+                        src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
+                        class="w-24 h-24 rounded-full mb-4 shadow-md"
+                        alt="Doctor"
+                      />
+                      <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+                        ${d.name}
+                      </h3>
+                      <p class="text-sm text-blue-500 dark:text-blue-400">
+                        ${d.specialization}
+                      </p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        ${d.qualification}
+                      </p>
+                      <div class="mt-3 text-xs space-y-1">
+                        <p
+                          class="flex items-center justify-center text-gray-600 dark:text-gray-300"
+                        >
+                          <ion-icon
+                            name="time-outline"
+                            class="mr-1 text-green-500"
+                          ></ion-icon>
+                          Available: ${d.available_days}, ${d.available_time}
+                        </p>
+                        <p
+                          class="flex items-center justify-center text-gray-600 dark:text-gray-300"
+                        >
+                          <ion-icon
+                            name="call-outline"
+                            class="mr-1 text-blue-500"
+                          ></ion-icon>
+                          <a href="tel:${d.phone_number}">${d.phone_number}</a>
+
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  `;
+        });
+      }
+
+      // default call function + dashboard call function
+      function dashboard() {
+        set_doctor_Name();
+        set_doctor_total_pescriptions();
+        set_doctor_total_unique_doctors();
+      }
+
+      dashboard();
+
+    
+
+      // csrf token get from html
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split("; ");
+          for (let cookie of cookies) {
+            if (cookie.startsWith(name + "=")) {
+              cookieValue = cookie.substring(name.length + 1);
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      // create patient
+
+      async function addPatient() {
+        // edit page
+
+        const editProfileUser_id =
+          document.getElementById("editProfileUser_id");
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        // value to json
+        const fromDataJson = {
+          user_id: editProfileUser_id.value,
+          phone_number: editProfilePhone.value,
+          gender: editProfileGender.value,
+          blood_group: editProfileBloodGroup2.value,
+          age: editProfileAge.value,
+          address: editProfileAddress.value,
+          short_bio: editProfileShortBio.value,
+          visible_to_doctors: editProfilePescriptionStatus.value,
+        };
+        //console.log(fromDataJson);
+
+        const csrftoken = getCookie("csrftoken");
+
+        const response = await fetch("http://127.0.0.1:8000/api/patients/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
+          },
+          body: JSON.stringify(fromDataJson),
+        });
+
+        const result = await response.json();
+        //console.log(result);
+        set_doctor_profile_ditels();
+        set_doctor_Name();
+      }
+
+      // patient update
+      async function updatePatient(patientId) {
+        // edit page
+
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        // value to json
+        const fromDataJson = {
+          phone_number: editProfilePhone.value,
+          gender: editProfileGender.value,
+          blood_group: editProfileBloodGroup2.value,
+          age: editProfileAge.value,
+          address: editProfileAddress.value,
+          short_bio: editProfileShortBio.value,
+          visible_to_doctors: editProfilePescriptionStatus.value,
+        };
+
+        // console.log(fromDataJson);
+        //console.log("get data to form");
+        const csrftoken = getCookie("csrftoken");
+
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/patients/${patientId}/`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify(fromDataJson),
+          }
+        );
+
+        const result = await response.json();
+        //console.log(result);
+
+        set_patient_profile_ditels();
+      }
+
+      // patient prodile create or update
+
+      async function createOrUpdate() {
+        let patientId = await find_patient_id(); // get patient id
+
+        // update account
+        if (patientId != -1) {
+          //console.log("entry here", patientId);
+          updatePatient(patientId);
+        } else {
+          // create new patient
+          addPatient();
+        }
+      }
+    </script>
+
 </body>
 </html>

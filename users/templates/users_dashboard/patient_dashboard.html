@@ -364,7 +364,8 @@
             <section class="md:col-span-2 grid gap-6">
               <!-- Row 1 -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {% comment %} <div>
+                {% comment %}
+                <div>
                   <p
                     class="text-sm font-medium text-gray-700 dark:text-gray-200"
                   >
@@ -376,7 +377,8 @@
                   >
                     Null
                   </p>
-                </div> {% endcomment %}
+                </div>
+                {% endcomment %}
 
                 <div>
                   <p
@@ -409,8 +411,6 @@
 
               <!-- Row 2 -->
               <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                
-
                 <div>
                   <p
                     class="text-sm font-medium text-gray-700 dark:text-gray-200"
@@ -604,7 +604,7 @@
                 <div>
                   <label class="text-sm font-medium">Phone</label>
                   <input
-                  required
+                    required
                     name="phone"
                     id="editProfilePhone"
                     class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
@@ -632,7 +632,7 @@
                     >Blood Group</label
                   >
                   <select
-                  required
+                    required
                     id="editProfileBloodGroup2"
                     name="editProfileBloodGroup02"
                     class="w-full border border-gray-300 rounded-lg px-3 py-2 dark:text-black text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -683,12 +683,12 @@
                     >Gender</label
                   >
                   <select
-                  required
+                    required
                     id="editProfileGender"
                     name="editProfileGenderv"
                     class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   >
-                    <option value="Male"  >Male</option>
+                    <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
                 </div>
@@ -696,7 +696,7 @@
                 <div>
                   <label class="text-sm font-medium">Age</label>
                   <input
-                  required
+                    required
                     name="age"
                     id="editProfileAge"
                     class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
@@ -741,7 +741,7 @@
                     Cancel
                   </button>
                   <button
-                    onclick="addPatient()"
+                    onclick="createOrUpdate()"
                     type="submit"
                     id="saveBtn"
                     class="px-5 py-2 rounded-md bg-indigo-600 text-white"
@@ -1711,33 +1711,33 @@
               const tr = document.createElement("tr");
 
               tr.innerHTML = `
-          
-           
-                                    <td class="px-6 py-4 whitespace-nowrap">${
-                                      p.id
-                                    }</td>
-                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white">${
-                                      p.doctor.user.first_name
-                                    } ${p.doctor.user.last_name}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">${
-                                      p.diagnosis
-                                    }</td>
-                                   
-                                    <td class="px-6 py-4 whitespace-nowrap">${
-                                      p.created_at.split("T")[0]
-                                    }</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">${p.medicines
-                                          .map((m) => m.medicine_name)
-                                          .join(", ")}</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                                        <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"><ion-icon name="eye-outline"></ion-icon></button>
-                                        <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"><ion-icon name="pencil-outline"></ion-icon></button>
-                                        <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"><ion-icon name="trash-outline"></ion-icon></button>
-                                    </td>
-                             
-        `;
+
+
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.id
+                                          }</td>
+                                          <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white">${
+                                            p.doctor.user.first_name
+                                          } ${p.doctor.user.last_name}</td>
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.diagnosis
+                                          }</td>
+
+                                          <td class="px-6 py-4 whitespace-nowrap">${
+                                            p.created_at.split("T")[0]
+                                          }</td>
+                                          <td class="px-6 py-4 whitespace-nowrap">
+                                              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">${p.medicines
+                                                .map((m) => m.medicine_name)
+                                                .join(", ")}</span>
+                                          </td>
+                                          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"><ion-icon name="eye-outline"></ion-icon></button>
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"><ion-icon name="pencil-outline"></ion-icon></button>
+                                              <button class="inline-flex p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"><ion-icon name="trash-outline"></ion-icon></button>
+                                          </td>
+
+              `;
 
               tbody.appendChild(tr);
             }
@@ -1756,7 +1756,7 @@
 
       async function find_patient_id() {
         let data = await GetAllPatientDitels();
-        let patient_id = 0;
+        let patient_id = -1;
         data.forEach((v) => {
           if (v.user.id == user_id) {
             patient_id = v.id;
@@ -1804,15 +1804,15 @@
         } else if (blood_group == "O-") {
           return 7;
         }
-      };
+      }
 
       function genderIndexFind(gender) {
         if (gender == "Male") {
           return 0;
         } else if (gender == "Female") {
           return 1;
-        } 
-      };
+        }
+      }
 
       // show patient profile all ditels
       async function set_patient_profile_ditels() {
@@ -1839,7 +1839,7 @@
         const profileShortBio = document.getElementById("profileShortBio");
 
         profileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
-       // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
+        // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
         profileBloodGroup1.innerHTML = `${data.blood_group} `;
         profileBloodGroup2.innerHTML = `${data.blood_group} `;
         profileEmail.innerHTML = `${data.user.email} `;
@@ -1892,6 +1892,9 @@
         editProfileAddress.value = `${data.address} `;
         editProfileShortBio.value = `${data.short_bio} `;
       }
+
+
+
 
       // working for every patient total pescription
       async function getPatientCount(id) {
@@ -1956,52 +1959,52 @@
 
         data.doctors.forEach((d) => {
           totalUniqueDoctorsDitels.innerHTML = `
-            
-                        <div
-              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
-              data-aos="zoom-in"
-            >
-              <div class="p-6 flex flex-col items-center text-center">
-                <img
-                  src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
-                  class="w-24 h-24 rounded-full mb-4 shadow-md"
-                  alt="Doctor"
-                />
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                  ${d.name}
-                </h3>
-                <p class="text-sm text-blue-500 dark:text-blue-400">
-                  ${d.specialization}
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  ${d.qualification}
-                </p>
-                <div class="mt-3 text-xs space-y-1">
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="time-outline"
-                      class="mr-1 text-green-500"
-                    ></ion-icon>
-                    Available: ${d.available_days}, ${d.available_time}
-                  </p>
-                  <p
-                    class="flex items-center justify-center text-gray-600 dark:text-gray-300"
-                  >
-                    <ion-icon
-                      name="call-outline"
-                      class="mr-1 text-blue-500"
-                    ></ion-icon>
-                    <a href="tel:${d.phone_number}">${d.phone_number}</a>
-                    
-                  </p>
-                </div>
-                
-              </div>
-            </div>
 
-            `;
+                              <div
+                    class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300"
+                    data-aos="zoom-in"
+                  >
+                    <div class="p-6 flex flex-col items-center text-center">
+                      <img
+                        src="https://www.codewithfaraz.com/tools/placeholder?size=80&bgColor=E2E8F0&textColor=4A5568&text=Dr.S"
+                        class="w-24 h-24 rounded-full mb-4 shadow-md"
+                        alt="Doctor"
+                      />
+                      <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+                        ${d.name}
+                      </h3>
+                      <p class="text-sm text-blue-500 dark:text-blue-400">
+                        ${d.specialization}
+                      </p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        ${d.qualification}
+                      </p>
+                      <div class="mt-3 text-xs space-y-1">
+                        <p
+                          class="flex items-center justify-center text-gray-600 dark:text-gray-300"
+                        >
+                          <ion-icon
+                            name="time-outline"
+                            class="mr-1 text-green-500"
+                          ></ion-icon>
+                          Available: ${d.available_days}, ${d.available_time}
+                        </p>
+                        <p
+                          class="flex items-center justify-center text-gray-600 dark:text-gray-300"
+                        >
+                          <ion-icon
+                            name="call-outline"
+                            class="mr-1 text-blue-500"
+                          ></ion-icon>
+                          <a href="tel:${d.phone_number}">${d.phone_number}</a>
+
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  `;
         });
       }
 
@@ -2014,13 +2017,7 @@
 
       dashboard();
 
-      fetch("http://127.0.0.1:8000/users/patients/", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access"),
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+    
 
       // csrf token get from html
 
@@ -2036,14 +2033,11 @@
           }
         }
         return cookieValue;
-      };
-
-
+      }
 
       // create patient
 
       async function addPatient() {
-
         // edit page
 
         const editProfileUser_id =
@@ -2074,8 +2068,7 @@
           short_bio: editProfileShortBio.value,
           visible_to_doctors: editProfilePescriptionStatus.value,
         };
-
-        console.log(fromDataJson);
+        //console.log(fromDataJson);
 
         const csrftoken = getCookie("csrftoken");
 
@@ -2089,18 +2082,77 @@
         });
 
         const result = await response.json();
-        console.log(result);
-      };
+        //console.log(result);
+        set_patient_profile_ditels();
+        set_patient_Name();
+      }
+
+      // patient update
+      async function updatePatient(patientId) {
+        // edit page
+
+        const editProfilePhone = document.getElementById("editProfilePhone");
+        const editProfilePescriptionStatus = document.getElementById(
+          "editProfilePescriptionStatus"
+        );
+        const editProfileBloodGroup2 = document.getElementById(
+          "editProfileBloodGroup2"
+        );
+        const editProfileAge = document.getElementById("editProfileAge");
+        const editProfileGender = document.getElementById("editProfileGender");
+        const editProfileAddress =
+          document.getElementById("editProfileAddress");
+        const editProfileShortBio = document.getElementById(
+          "editProfileShortBio"
+        );
+
+        // value to json
+        const fromDataJson = {
+          phone_number: editProfilePhone.value,
+          gender: editProfileGender.value,
+          blood_group: editProfileBloodGroup2.value,
+          age: editProfileAge.value,
+          address: editProfileAddress.value,
+          short_bio: editProfileShortBio.value,
+          visible_to_doctors: editProfilePescriptionStatus.value,
+        };
+
+        // console.log(fromDataJson);
+        //console.log("get data to form");
+        const csrftoken = getCookie("csrftoken");
+
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/patients/${patientId}/`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify(fromDataJson),
+          }
+        );
+
+        const result = await response.json();
+        //console.log(result);
+
+        set_patient_profile_ditels();
+      }
 
       // patient prodile create or update
 
-      async createOrUpdate(){
-            
-        if(){
+      async function createOrUpdate() {
+        let patientId = await find_patient_id(); // get patient id
 
+        // update account
+        if (patientId != -1) {
+          //console.log("entry here", patientId);
+          updatePatient(patientId);
+        } else {
+          // create new patient
+          addPatient();
         }
-
-      };
+      }
     </script>
   </body>
 </html>
