@@ -119,7 +119,7 @@
                         <ion-icon name="chevron-down-outline" class="hidden md:inline text-xs text-gray-500 dark:text-gray-400"></ion-icon>
                     </button>
                     <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 hidden ring-1 ring-black ring-opacity-5 z-10">
-                        <a href="#" data-section="profileView" class="sidebar-link block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
+                        <a onclick="set_doctor_profile_ditels()" href="#" data-section="profileView" class="sidebar-link block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
                         <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
                     </div>
@@ -228,10 +228,10 @@
                   <p
                     class="text-sm font-medium text-gray-700 dark:text-gray-200"
                   >
-                    Blood Group
+                   Qualification
                   </p>
                   <p
-                    id="profileBloodGroup2"
+                    id="profileQualification"
                     class="mt-1 text-gray-600 dark:text-gray-300"
                   >
                     Null
@@ -242,10 +242,10 @@
                   <p
                     class="text-sm font-medium text-gray-700 dark:text-gray-200"
                   >
-                    Pescription Status
+                    Specialization
                   </p>
                   <p
-                    id="profilePescriptionStatus"
+                    id="profileSpecialization"
                     class="mt-1 text-gray-600 dark:text-gray-300"
                   >
                     Null
@@ -1205,7 +1205,7 @@
 
       async function GetSingleDoctorDitels() {
         let doctor_id = await find_doctor_id();
-        console.log("doctor_ id : ", doctor_id);
+        //console.log("doctor_ id : ", doctor_id);
         let res = await fetch(`${API_BASE}/doctors/${doctor_id}`);
 
         return res.json();
@@ -1252,23 +1252,23 @@
       }
 
       // show patient profile all ditels
-      async function set_patient_profile_ditels() {
-        let data = await GetSinglePatientDitels();
+      async function set_doctor_profile_ditels() {
+        let data = await GetSingleDoctorDitels();
 
-        //console.log(data);
+        console.log(data);
 
         // set data -> html
 
         const profileName = document.getElementById("profileName");
         const profileBloodGroup1 =
           document.getElementById("profileBloodGroup1");
-        const profileBloodGroup2 =
-          document.getElementById("profileBloodGroup2");
+        const profileQualification =
+          document.getElementById("profileQualification");
         //const profileFullName = document.getElementById("profileFullName");
         const profileEmail = document.getElementById("profileEmail");
         const profilePhone = document.getElementById("profilePhone");
-        const profilePescriptionStatus = document.getElementById(
-          "profilePescriptionStatus"
+        const profileSpecialization = document.getElementById(
+          "profileSpecialization"
         );
         const profileGender = document.getElementById("profileGender");
         const profileAge = document.getElementById("profileAge");
@@ -1278,22 +1278,22 @@
         profileName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
         // profileFullName.innerHTML = `${data.user.first_name} ${data.user.last_name}`;
         profileBloodGroup1.innerHTML = `${data.blood_group} `;
-        profileBloodGroup2.innerHTML = `${data.blood_group} `;
+        profileQualification.innerHTML = `${data.blood_group} `;
         profileEmail.innerHTML = `${data.user.email} `;
         profilePhone.innerHTML = `${data.phone_number} `;
         profileGender.innerHTML = `${data.gender} `;
         profileAge.innerHTML = `${data.age} `;
-        profilePescriptionStatus.innerHTML = `${data.visible_to_doctors}`;
+        profileSpecialization.innerHTML = `${data.visible_to_doctors}`;
         profileAddress.innerHTML = `${data.address} `;
         profileShortBio.innerHTML = `${data.short_bio} `;
 
         // edit page
-        const editProfileName = document.getElementById("editProfileName");
+     /*   const editProfileName = document.getElementById("editProfileName");
         const editProfileBloodGroup1 = document.getElementById(
           "editProfileBloodGroup1"
         );
         const editProfileBloodGroup2 = document.getElementById(
-          "editProfileBloodGroup2"
+          "editProfileQualification"
         );
         const editProfileFastName = document.getElementById(
           "editProfileFastName"
@@ -1327,12 +1327,12 @@
         editProfileBloodGroup2.selectedIndex = bloodIndexFind(data.blood_group);
         editProfilePescriptionStatus.value = `${data.visible_to_doctors}`;
         editProfileAddress.value = `${data.address} `;
-        editProfileShortBio.value = `${data.short_bio} `;
+        editProfileShortBio.value = `${data.short_bio} `; */
       }
 
 
 
-
+{% comment %} 
       // working for every patient total pescription
       async function getPatientCount(id) {
         const res = await fetch(
@@ -1573,7 +1573,7 @@
         const result = await response.json();
         //console.log(result);
 
-        set_patient_profile_ditels();
+        set_doctor_profile_ditels();
       }
 
       // patient prodile create or update
@@ -1589,7 +1589,7 @@
           // create new patient
           addPatient();
         }
-      }
+      } {% endcomment %}
     </script>
 
 </body>

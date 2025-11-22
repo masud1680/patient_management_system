@@ -21,6 +21,8 @@ class PatientProfile(models.Model):
 class DoctorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=20, default="Null")
+    age = models.CharField(max_length=20, default="Null")
+    address = models.CharField(max_length=200, default="Null")
     qualification = models.CharField(max_length=255)
     specialization = models.CharField(max_length=255, default="Null")
     short_bio = models.TextField(max_length=300, default="Null")
