@@ -157,6 +157,44 @@
             <section
               class="md:col-span-1 flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
             >
+
+
+                   <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="avatarPreview"
+                  src="https://placehold.co/150x150?text=Avatar"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+                <label
+                  for="avatarInput"
+                  class="absolute bottom-2 right-2 bg-indigo-600 text-white rounded-full p-2 shadow-md cursor-pointer no-print hover:bg-indigo-700 transition"
+                  title="Change avatar"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9.414A2 2 0 0016.414 8L12 3.586A2 2 0 0010.586 3H4z"
+                    />
+                  </svg>
+                </label>
+                <input
+                  id="avatarInput"
+                  class="avatar-input"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+
+
+
+
+
+              
               <div class="relative w-36 h-36 sm:w-40 sm:h-40">
                 <img
                   id="viewAvatar"
@@ -443,7 +481,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div class="grid grid-cols-6 sm:grid-cols-1 md:grid-cols-3  gap-4">
                 {% comment %}
                 <div>
                   <label class="text-sm font-medium">Blood Group</label>
@@ -478,33 +516,7 @@
                   </select>
                 </div>
 
-                {% comment %}
-                <div>
-                  <label class="text-sm font-medium">Pescription Status</label>
-                  <input
-                    name="availability"
-                    id="editProfilePescriptionStatus"
-                    class="mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
-                    placeholder="Mon-Fri, 9am - 5pm"
-                  />
-                </div>
-
-                {% endcomment %}
-                <div>
-                  <label
-                    for="editProfilePescriptionStatusv"
-                    class="block dark:text-white text-gray-700 font-semibold mb-2"
-                    >Pescription Status</label
-                  >
-                  <select
-                    id="editProfilePescriptionStatus"
-                    name="editProfilePescriptionStatusv"
-                    class="dark:text-black w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  >
-                    <option value="true" selected>True</option>
-                    <option value="false">False</option>
-                  </select>
-                </div>
+    
 
                 <div>
                   <label
@@ -533,6 +545,34 @@
                     placeholder="18"
                   />
                 </div>
+
+           
+
+                             <div>
+                  <label class="text-sm font-medium">Qualification</label>
+                  <input
+                    required
+                    {% comment %} name="editprofileQualificationname" {% endcomment %}
+                    id="editprofileQualification"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Enter Qualification"
+                  />
+                </div>
+            
+           
+                <div>
+                  <label class="text-sm font-medium">Specialization</label>
+                  <input
+                    required
+                    {% comment %} name="editprofileSpecializationname" {% endcomment %}
+                    id="editprofileSpecialization"
+                    class="dark:text-black mt-1 block w-full rounded-md border-gray-200 dark:border-gray-600 shadow-sm focus:ring-2 focus:ring-indigo-200 p-2"
+                    placeholder="Enter Specialization"
+                  />
+                </div>
+              
+
+            
               </div>
 
               <div>
@@ -1305,12 +1345,12 @@
         profileShortBio.innerHTML = `${data.short_bio} `;
 
         // edit page
-     /*   const editProfileName = document.getElementById("editProfileName");
+       const editProfileName = document.getElementById("editProfileName");
         const editProfileBloodGroup1 = document.getElementById(
           "editProfileBloodGroup1"
         );
         const editProfileBloodGroup2 = document.getElementById(
-          "editProfileQualification"
+          "editProfileBloodGroup2"
         );
         const editProfileFastName = document.getElementById(
           "editProfileFastName"
@@ -1322,9 +1362,8 @@
         const editProfilePhone = document.getElementById("editProfilePhone");
         const editProfileGender = document.getElementById("editProfileGender");
         const editProfileAge = document.getElementById("editProfileAge");
-        const editProfilePescriptionStatus = document.getElementById(
-          "editProfilePescriptionStatus"
-        );
+         const editprofileQualification =  document.getElementById("editprofileQualification");
+          const editprofileSpecialization = document.getElementById( "editprofileSpecialization" );
         const editProfileAddress =
           document.getElementById("editProfileAddress");
         const editProfileShortBio = document.getElementById(
@@ -1342,9 +1381,10 @@
         editProfileGender.selectedIndex = genderIndexFind(data.gender);
         editProfileAge.value = `${data.age} `;
         editProfileBloodGroup2.selectedIndex = bloodIndexFind(data.blood_group);
-        editProfilePescriptionStatus.value = `${data.visible_to_doctors}`;
+        editprofileQualification.value = `${data.qualification} `;
+        editprofileSpecialization.value = `${data.specialization}`;
         editProfileAddress.value = `${data.address} `;
-        editProfileShortBio.value = `${data.short_bio} `; */
+        editProfileShortBio.value = `${data.short_bio} `; 
       }
 
 
@@ -1464,6 +1504,7 @@
 
  
 
+       {% endcomment %}
     
 
       // csrf token get from html
@@ -1482,9 +1523,12 @@
         return cookieValue;
       }
 
-      // create patient
 
-      async function addPatient() {
+
+
+      // create doctor
+
+      async function addDoctor() {
         // edit page
 
         const editProfileUser_id =
@@ -1498,6 +1542,8 @@
         );
         const editProfileAge = document.getElementById("editProfileAge");
         const editProfileGender = document.getElementById("editProfileGender");
+          const editprofileQualification =  document.getElementById("editprofileQualification");
+          const editprofileSpecialization = document.getElementById( "editprofileSpecialization" );
         const editProfileAddress =
           document.getElementById("editProfileAddress");
         const editProfileShortBio = document.getElementById(
@@ -1511,15 +1557,16 @@
           gender: editProfileGender.value,
           blood_group: editProfileBloodGroup2.value,
           age: editProfileAge.value,
+          qualification : editprofileQualification.value ,
+          specialization : editprofileSpecialization.value ,
           address: editProfileAddress.value,
           short_bio: editProfileShortBio.value,
-          visible_to_doctors: editProfilePescriptionStatus.value,
         };
         //console.log(fromDataJson);
 
         const csrftoken = getCookie("csrftoken");
 
-        const response = await fetch("http://127.0.0.1:8000/api/patients/", {
+        const response = await fetch("http://127.0.0.1:8000/api/doctors/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -1535,18 +1582,18 @@
       }
 
       // patient update
-      async function updatePatient(patientId) {
+      async function updateDoctor(doctorId) {
         // edit page
 
         const editProfilePhone = document.getElementById("editProfilePhone");
-        const editProfilePescriptionStatus = document.getElementById(
-          "editProfilePescriptionStatus"
-        );
+   
         const editProfileBloodGroup2 = document.getElementById(
           "editProfileBloodGroup2"
         );
         const editProfileAge = document.getElementById("editProfileAge");
         const editProfileGender = document.getElementById("editProfileGender");
+         const editprofileQualification =  document.getElementById("editprofileQualification");
+          const editprofileSpecialization = document.getElementById( "editprofileSpecialization" );
         const editProfileAddress =
           document.getElementById("editProfileAddress");
         const editProfileShortBio = document.getElementById(
@@ -1559,9 +1606,11 @@
           gender: editProfileGender.value,
           blood_group: editProfileBloodGroup2.value,
           age: editProfileAge.value,
+          qualification : editprofileQualification.value ,
+          specialization : editprofileSpecialization.value ,
           address: editProfileAddress.value,
           short_bio: editProfileShortBio.value,
-          visible_to_doctors: editProfilePescriptionStatus.value,
+          
         };
 
         // console.log(fromDataJson);
@@ -1569,7 +1618,7 @@
         const csrftoken = getCookie("csrftoken");
 
         const response = await fetch(
-          `http://127.0.0.1:8000/api/patients/${patientId}/`,
+          `http://127.0.0.1:8000/api/doctors/${doctorId}/`,
           {
             method: "PATCH",
             headers: {
@@ -1589,17 +1638,17 @@
       // patient prodile create or update
 
       async function createOrUpdate() {
-        let patientId = await find_patient_id(); // get patient id
+        let doctorId = await find_doctor_id(); // get patient id
 
         // update account
-        if (patientId != -1) {
+        if (doctorId != -1) {
           //console.log("entry here", patientId);
-          updatePatient(patientId);
+          updateDoctor(doctorId);
         } else {
           // create new patient
-          addPatient();
+          addDoctor();
         }
-      } {% endcomment %}
+      }
 
 
            // default call function + dashboard call function

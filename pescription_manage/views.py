@@ -28,7 +28,7 @@ class PatientProfileViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 # DoctorProfile viewset (read-only)
-class DoctorProfileViewSet(viewsets.ReadOnlyModelViewSet):
+class DoctorProfileViewSet(viewsets.ModelViewSet):
     queryset = DoctorProfile.objects.select_related('user').all()
     serializer_class = DoctorProfileSerializer
 

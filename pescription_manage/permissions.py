@@ -22,6 +22,4 @@ class IsPatient(BasePermission):
 
 class IsDoctorOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return hasattr(request.user, 'doctorprofile')
+        return request.user.is_authenticated and request.user.groups == 'doctor'
