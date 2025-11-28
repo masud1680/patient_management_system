@@ -90,26 +90,26 @@ WSGI_APPLICATION = 'PMS.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#        'default': {
-#           'ENGINE': config("DB_ENGINE"),
-#           'NAME': config('DB_NAME'),  # Name of your PostgreSQL database
-#           'USER': config('DB_USER'),      # PostgreSQL username
-#           'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
-#           'HOST': config('DB_HOST', default='localhost'),          # Or the IP/hostname if remote
-#           'PORT': config('DB_PORT', default='5432'),               # Default PostgreSQL port
-#        }
-#    }
-
-
-import dj_database_url
-# Online Onrender.com pg database connect
 DATABASES = {
-    'default': dj_database_url.config(
-        default="postgresql://patient_management_system_pk1c_user:jpMfYFV7az0oFf9zLBRGHpdb6rJh6Uvf@dpg-d4653vmuk2gs73cu8pm0-a.singapore-postgres.render.com/patient_management_system_pk1c",
-        conn_max_age=600
-    )
-}
+       'default': {
+          'ENGINE': config("DB_ENGINE"),
+          'NAME': config('DB_NAME'),  # Name of your PostgreSQL database
+          'USER': config('DB_USER'),      # PostgreSQL username
+          'PASSWORD': config('DB_PASSWORD'),  # PostgreSQL password
+          'HOST': config('DB_HOST', default='localhost'),          # Or the IP/hostname if remote
+          'PORT': config('DB_PORT', default='5432'),               # Default PostgreSQL port
+       }
+   }
+
+
+# import dj_database_url
+# # Online Onrender.com pg database connect
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="postgresql://patient_management_system_pk1c_user:jpMfYFV7az0oFf9zLBRGHpdb6rJh6Uvf@dpg-d4653vmuk2gs73cu8pm0-a.singapore-postgres.render.com/patient_management_system_pk1c",
+#         conn_max_age=600
+#     )
+# }
 
 
 # Password validation
